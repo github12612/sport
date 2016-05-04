@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 		//影响行数 返回商品id
 		Integer i = productDao.addProduct(product);
 		
-		//关联图片表 sku
+		//关联图片表 
 		//设置商品id
 		product.getImg().setProductId(product.getId());
 		//是否默认

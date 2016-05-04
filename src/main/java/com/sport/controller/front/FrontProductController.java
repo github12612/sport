@@ -1,6 +1,8 @@
 package com.sport.controller.front;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ import cn.itcast.common.page.Pagination;
  *
  */
 @Controller
+@RequestMapping("/product/display/")
 public class FrontProductController {
 
 	@Autowired
@@ -41,50 +44,89 @@ public class FrontProductController {
 	@Autowired
 	private FeatureService featureService;
 	
-	@RequestMapping()
-	public String list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,ModelMap modelMap) {
-		// 加载商品类型
-		TypeQuery typeQuery = new TypeQuery();
-		// 查询字段
-		typeQuery.setFields("id,name");
-		// 设置可见
-		typeQuery.setIsDisplay(1);
-		// 设置关联类型id
-		typeQuery.setParentId(0);
-		// 集合
-		List<Type> typeList = typeService.getTypeList(typeQuery);
-		modelMap.addAttribute("typeList", typeList);
-
-		// 品牌查询条件
-		BrandQuery brandQuery = new BrandQuery();
-		// 查询字段
-		brandQuery.setFields("id,name");
-		// 设置可见
-		brandQuery.setIsDisplay(1);
-
-		// 加载品牌
-		List<Brand> brandList = brandService.getBrandList(brandQuery);
-		modelMap.addAttribute("brandList", brandList);
+	@RequestMapping("list.shtml")
+	public String list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,Integer brandId,String brandName,
+						Integer typeId,String typeName,ModelMap modelMap) {
 
 		// 加载商品属性
 		FeatureQuery featureQuery = new FeatureQuery();
 		List<Feature> featureList = featureService.getFeatureList(featureQuery);
 		modelMap.addAttribute("featureList", featureList);
 		
+		//parms 为页面展示分页数据 下一页...
+		StringBuilder params = new StringBuilder();
 		//查询条件
 		ProductQuery productQuery=new ProductQuery();
+		
+		//条件TOOD
+		//隐藏已选条件
+		boolean flag=false;
+		//定义查询显示条件
+		Map<String ,String>query=new LinkedHashMap<String,String>();
+		
+		//品牌id
+		if(brandId != null){
+			productQuery.setBrandId(brandId);
+			flag=true;
+			modelMap.addAttribute("brandId", brandId);
+			modelMap.addAttribute("brandName", brandName);
+			query.put("品牌", brandName);
+			
+			//分页展示
+			params.append("&").append("brandId=").append(brandId).append("&brandName=").append(brandName);
+		}else{
+			// 品牌查询条件
+			BrandQuery brandQuery = new BrandQuery();
+			// 查询字段
+			brandQuery.setFields("id,name");
+			// 设置可见
+			brandQuery.setIsDisplay(1);
+			// 加载品牌
+			List<Brand> brandList = brandService.getBrandList(brandQuery);
+			modelMap.addAttribute("brandList", brandList);
+		}
+		
+		//类型id
+		if(typeId != null){
+			productQuery.setTypeId(typeId);
+			flag=true;
+			modelMap.addAttribute("typeId", typeId);
+			modelMap.addAttribute("typeName", typeName);
+			query.put("类型", typeName);
+			//分页展示
+			params.append("&").append("typeId=").append(typeId).append("&typeName=").append(typeName);
+		}else{
+			// 加载商品类型
+			TypeQuery typeQuery = new TypeQuery();
+			// 查询字段
+			typeQuery.setFields("id,name");
+			// 设置可见
+			typeQuery.setIsDisplay(1);
+			// 设置关联类型id
+			typeQuery.setParentId(0);
+			// 商品类型集合
+			List<Type> typeList = typeService.getTypeList(typeQuery);
+			modelMap.addAttribute("typeList", typeList);
+		}
+		
+		modelMap.addAttribute("flag", flag);
+		//把查询的值回显页面
+		modelMap.addAttribute("query", query);
+		
 		//设置页码
 		productQuery.setPageNo(pageNo);
 		//设置页数
 		productQuery.setPageSize(Product.FRONT_PAGE_SIZE);
+		//设置倒叙
+		productQuery.orderbyId(false);
 		//加载分页商品
 		Pagination page = productService.getProductListWithPage(productQuery);
-		//parms 为页面展示分页数据 下一页...
-		StringBuilder params = new StringBuilder();
-		String url = "/product/list.do";
+		
+		String url = "/product/display/list.shtml";
+		
 		// 页面展示
 		page.pageView(url, params.toString());
-
+		
 		modelMap.addAttribute("page", page);
 		
 		return "product/product";
