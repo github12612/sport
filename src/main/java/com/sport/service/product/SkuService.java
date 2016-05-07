@@ -69,4 +69,11 @@ public interface SkuService {
 	 */
 	public List<Sku> getSkuList(SkuQuery skuQuery);
 	
+	
+	/**
+	 * 查询库存大于0的集合
+	 * @param porductId
+	 * @return
+	 */
+	public List<Sku> getStock(Integer porductId);
 }

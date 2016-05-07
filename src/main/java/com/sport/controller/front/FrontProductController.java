@@ -1,5 +1,6 @@
 package com.sport.controller.front;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sport.bean.product.Brand;
+import com.sport.bean.product.Color;
 import com.sport.bean.product.Feature;
 import com.sport.bean.product.Product;
+import com.sport.bean.product.Sku;
 import com.sport.bean.product.Type;
+import com.sport.common.session.HttpSessionProvider;
 import com.sport.query.product.BrandQuery;
 import com.sport.query.product.FeatureQuery;
 import com.sport.query.product.ProductQuery;
@@ -21,6 +25,7 @@ import com.sport.query.product.TypeQuery;
 import com.sport.service.product.BrandService;
 import com.sport.service.product.FeatureService;
 import com.sport.service.product.ProductService;
+import com.sport.service.product.SkuService;
 import com.sport.service.product.TypeService;
 
 import cn.itcast.common.page.Pagination;
@@ -43,6 +48,10 @@ public class FrontProductController {
 	private TypeService typeService;
 	@Autowired
 	private FeatureService featureService;
+	@Autowired
+	private SkuService skuService;
+	@Autowired
+	private HttpSessionProvider sessionProvider;
 	
 	@RequestMapping("list.shtml")
 	public String list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,Integer brandId,String brandName,
@@ -130,5 +139,37 @@ public class FrontProductController {
 		modelMap.addAttribute("page", page);
 		
 		return "product/product";
+	}
+	
+	/**
+	 * 商品详情
+	 * @param id
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping("detail.shtml")
+	public String detail(Integer id,ModelMap modelMap){
+		//加载商品
+		Product product = productService.getProductByKey(id);
+		modelMap.addAttribute("product", product);
+		
+		//根据productid获取对应的
+		List<Sku> skuList = skuService.getStock(id);
+		modelMap.addAttribute("skuList", skuList);
+		
+		//去除重复
+		List<Color> colors=new ArrayList<Color>();
+		
+		//遍历sku
+		for (Sku sku : skuList) {
+			//判断是否有此颜色对象了 需重写color的equals和hashcode
+			if(!colors.contains(sku.getColor())){
+				colors.add(sku.getColor());
+			}
+		}
+		//放进域
+		modelMap.addAttribute("colors", colors);
+		
+		return "/product/productDetail";
 	}
 }

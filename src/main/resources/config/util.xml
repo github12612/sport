@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!--实例化类 加入spring  -->
+	<bean id="md5" class="com.sport.common.encode.Md5PwdImpl"></bean>
+	
+	<bean id="sessionProvider" class="com.sport.common.session.HttpSessionProvider"></bean>
+</beans>

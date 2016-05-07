@@ -102,7 +102,17 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Transactional(readOnly = true)
 	public Product getProductByKey(Integer id) {
-		return productDao.getProductByKey(id);
+		//用于商品显示
+		Product product = productDao.getProductByKey(id);
+		//img查询对象
+		ImgQuery imgQuery=new ImgQuery();
+		imgQuery.setProductId(product.getId());
+		imgQuery.setIsDef(1);
+		
+		List<Img> list = imgService.getImgList(imgQuery);
+		product.setImg(list.get(0));
+		
+		return product;
 	}
 	
 	@Transactional(readOnly = true)

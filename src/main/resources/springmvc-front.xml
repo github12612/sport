@@ -13,4 +13,18 @@
 		<property name="prefix" value="/WEB-INF/front_page/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<!-- 映射器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="com.sport.web.SpringMvcInterceptor" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	
+	</bean>
 </beans>

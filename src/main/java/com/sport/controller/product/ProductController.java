@@ -1,6 +1,9 @@
 package com.sport.controller.product;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,9 @@ import com.sport.bean.product.Color;
 import com.sport.bean.product.Feature;
 import com.sport.bean.product.Img;
 import com.sport.bean.product.Product;
+import com.sport.bean.product.Sku;
 import com.sport.bean.product.Type;
+import com.sport.controller.staticpage.StaticPageService;
 import com.sport.query.product.BrandQuery;
 import com.sport.query.product.ColorQuery;
 import com.sport.query.product.FeatureQuery;
@@ -24,6 +29,7 @@ import com.sport.service.product.BrandService;
 import com.sport.service.product.ColorService;
 import com.sport.service.product.FeatureService;
 import com.sport.service.product.ProductService;
+import com.sport.service.product.SkuService;
 import com.sport.service.product.TypeService;
 
 import cn.itcast.common.page.Pagination;
@@ -48,14 +54,18 @@ public class ProductController {
 	private FeatureService featureService;
 	@Autowired
 	private ColorService colorService;
-
+	@Autowired
+	private StaticPageService staticPageService;
+	@Autowired
+	private SkuService skuService;
+	
 	@RequestMapping("list.do")
 	public String list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, String name, Integer brandId,
 			Integer isShow, ModelMap modelMap) {
 
 		// 品牌查询条件
 		BrandQuery brandQuery = new BrandQuery();
-		System.out.println(name);
+		
 		brandQuery.setFields("id,name");
 		// 设置可见
 		brandQuery.setIsDisplay(1);
@@ -218,9 +228,37 @@ public class ProductController {
 				product.setId(id);
 				// 修改上架状态
 				productService.updateProductByKey(product);
+				
+				Map<String,Object>rootMap =new HashMap<String,Object>();
+				
+				//加载商品
+				Product p = productService.getProductByKey(id);
+				rootMap.put("product", p);
+				
+				//根据productid获取对应的
+				List<Sku> skuList = skuService.getStock(id);
+				rootMap.put("skuList", skuList);
+				
+				//去除重复
+				List<Color> colors=new ArrayList<Color>();
+				
+				//遍历sku
+				for (Sku sku : skuList) {
+					//判断是否有此颜色对象了 需重写color的equals和hashcode
+					if(!colors.contains(sku.getColor())){
+						colors.add(sku.getColor());
+					}
+				}
+				//放进域
+				rootMap.put("colors", colors);
+				//静态化
+				
+				staticPageService.productIndex(rootMap, id);
 			}
 		}
-
+		
+		
+		
 		if (pageNo != null) {
 			modelMap.addAttribute("pageNo", pageNo);
 		}

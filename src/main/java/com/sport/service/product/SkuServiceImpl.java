@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sport.bean.product.Color;
 import com.sport.bean.product.Sku;
 import com.sport.mapper.product.SkuDao;
 import com.sport.query.product.SkuQuery;
@@ -23,6 +24,8 @@ public class SkuServiceImpl implements SkuService {
 
 	@Resource
 	SkuDao skuDao;
+	@Resource
+	ColorService colorService;
 
 	/**
 	 * 插入数据库
@@ -77,6 +80,25 @@ public class SkuServiceImpl implements SkuService {
 	
 	@Transactional(readOnly = true)
 	public List<Sku> getSkuList(SkuQuery skuQuery) {
-		return skuDao.getSkuList(skuQuery);
+		List<Sku> skuList = skuDao.getSkuList(skuQuery);
+		//加载颜色
+		for (Sku sku : skuList) {
+			//获取对应的color
+			Color color = colorService.getColorByKey(sku.getColorId());
+			sku.setColor(color);
+		}
+		return skuList;
+	}
+
+	@Override
+	public List<Sku> getStock(Integer porductId) {
+		List<Sku> list = skuDao.getStock(porductId);
+		//加载颜色
+		for (Sku sku : list) {
+			//获取对应的color
+			Color color = colorService.getColorByKey(sku.getColorId());
+			sku.setColor(color);
+		}
+		return list;
 	}
 }
