@@ -53,7 +53,7 @@ public class SpringMvcInterceptor implements HandlerInterceptor{
 		if(requestURI.startsWith(INTERCEPTOR_URL)){
 			//如果为空返回登陆页面
 			if(buyer == null){
-				response.sendRedirect("/shopping/login.shtml?returnUrl="+request.getParameter("returnUrl"));
+				response.sendRedirect("/shopping/login.shtml?returnUrl="+requestURI);
 				
 				//preHandle false 不执行后续
 				return false;

@@ -14,4 +14,10 @@ public interface Constants {
 	 * 用户session
 	 */
 	public static final String BUYER_SESSION="buyer_session";
+	
+	/**
+	 * 购物车cookie
+	 * 
+	 */
+	public static final String BUYCART_COOKIE="buyCart_cookie";
 }

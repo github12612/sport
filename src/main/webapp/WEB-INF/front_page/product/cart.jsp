@@ -60,14 +60,15 @@ function trueBuy(){
 			</tr>     
 			</thead>
 			<tbody>
-			
+			<c:forEach items="${buyCart.items}" var="item">
 				<tr>
 					<td class="nwp pic">
 						<ul class="uls">
 							<li>
-								<a class="pic" title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="javascript:void(0)"><img alt=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" src="/res/img/pic/ppp0.jpg"></a>
+								<a class="pic" title="${item.sku.product.name}" href="javascript:void(0)">
+								<img alt=" ${item.sku.product.name}" src="${item.sku.product.img.allUrl}"></a>
 								<dl>
-									<dt><a title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="javascript:void(0)"> 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款--西瓜红--S</a></dt>
+									<dt><a title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="javascript:void(0)">${item.sku.product.name}--${item.sku.color.name}--${item.sku.size}</a></dt>
 									<dd><span class="red">【赠品】</span>
 										<p class="box_d bg_gray2 gray"><a title="瑜伽丝带" href="#">瑜伽丝带</a><br></p>
 									</dd>
@@ -75,49 +76,15 @@ function trueBuy(){
 							</li>
 						</ul>
 					</td>
-					<td>￥333.01</td>
-					<td><a onclick="subProductAmount(492,9)" class="inb arr" title="减" href="javascript:void(0);">-</a><input type="text" id="num492" readonly="readonly" value="1" name="" size="1" class="txts"><a onclick="addProductAmount(492,9)" class="inb arr" title="加" href="javascript:void(0);">+</a></td>
-					<td class="blue"><a onclick="delProduct(492)" title="删除" href="javascript:void(0);">删除</a></td>
-				</tr>
-				
-				<tr>
-					<td class="nwp pic">
-						<ul class="uls">
-							<li>
-								<a class="pic" title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="#"><img alt=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" src="/res/img/pic/ppp0.jpg"></a>
-								<dl>
-									<dt><a title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="#"> 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款--典雅灰--M</a></dt>
-									<dd><span class="red">【赠品】</span>
-										<p class="box_d bg_gray2 gray"><a title="瑜伽丝带" href="#">瑜伽丝带</a><br></p>
-									</dd>
-								</dl>
-							</li>
-						</ul>
+					<td>￥${item.sku.skuPrice}</td>
+					<td><a onclick="subProductAmount(492,9)" class="inb arr" title="减" href="javascript:void(0);">-</a>
+						<input type="text" id="num492" readonly="readonly" value="${item.amount}" name="" size="1" class="txts">
+						<a onclick="addProductAmount(492,9)" class="inb arr" title="加" href="javascript:void(0);">+</a></td>
+					<td class="blue">
+						<a onclick="delProduct(492)" title="删除" href="javascript:void(0);">删除</a>
 					</td>
-					<td>￥235.0</td>
-					<td><a onclick="subProductAmount(503,4)" class="inb arr" title="减" href="javascript:void(0);">-</a><input type="text" id="num503" readonly="readonly" value="1" name="" size="1" class="txts"><a onclick="addProductAmount(503,4)" class="inb arr" title="加" href="javascript:void(0);">+</a></td>
-					<td class="blue"><a onclick="delProduct(503)" title="删除" href="javascript:void(0);">删除</a></td>
 				</tr>
-				
-				<tr>
-					<td class="nwp pic">
-						<ul class="uls">
-							<li>
-								<a class="pic" title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="#"><img alt=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" src="/res/img/pic/ppp0.jpg"></a>
-								<dl>
-									<dt><a title=" 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款" href="#"> 喜悦2014秋冬新款瑜伽服三件套装 韩版女士瑜珈舞蹈服 愈加服正品送胸垫 酒红+黑+黑 M 开启年终大促 全场优惠到底 买贵就赔 支持货到付款--草绿--XL</a></dt>
-									<dd><span class="red">【赠品】</span>
-										<p class="box_d bg_gray2 gray"><a title="瑜伽丝带" href="#">瑜伽丝带</a><br></p>
-									</dd>
-								</dl>
-							</li>
-						</ul>
-					</td>
-					<td>￥121.0</td>
-					<td><a onclick="subProductAmount(500,1)" class="inb arr" title="减" href="javascript:void(0);">-</a><input type="text" id="num500" readonly="readonly" value="1" name="" size="1" class="txts"><a onclick="addProductAmount(500,1)" class="inb arr" title="加" href="javascript:void(0);">+</a></td>
-					<td class="blue"><a onclick="delProduct(500)" title="删除" href="javascript:void(0);">删除</a></td>
-				</tr>
-				           
+			</c:forEach>	
 			</tbody>
 			</table>
 			<div class="page">

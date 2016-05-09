@@ -1,8 +1,12 @@
 package com.sport.controller.profile;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.octo.captcha.service.image.ImageCaptchaService;
+import com.sport.bean.country.City;
+import com.sport.bean.country.Province;
+import com.sport.bean.country.Town;
 import com.sport.bean.user.Buyer;
+import com.sport.common.ResponUtils;
 import com.sport.common.encode.Md5Pwd;
 import com.sport.common.session.SessionProvider;
+import com.sport.query.country.CityQuery;
+import com.sport.query.country.TownQuery;
 import com.sport.service.country.CityService;
 import com.sport.service.country.ProvinceService;
 import com.sport.service.country.TownService;
@@ -39,10 +49,12 @@ public class ProfileController {
 	private ImageCaptchaService imageCaptchaService;
 	//省
 	@Autowired
-	private ProvinceService ProvinceService;
+	private ProvinceService provinceService;
 	//市
+	@Autowired
 	private CityService cityService;
 	//县
+	@Autowired
 	private TownService townService;
 	
 	// get 进入登陆界面
@@ -127,10 +139,65 @@ public class ProfileController {
 	 * 个人资料
 	 * @return
 	 */
-	@RequestMapping("/buyer/profile.shtml")
-	public String profile(){
+	@RequestMapping(value="/buyer/profile.shtml")
+	public String profile(HttpServletRequest request,ModelMap modelMap){
+		
+		//加载用户
+		Buyer buyer = (Buyer) sessionProvider.getAttrbute(request,Constants.BUYER_SESSION );
+		modelMap.addAttribute("buyer", buyer);
+		
+		//省
+		List<Province> provinceList = provinceService.getProvinceList(null);
+		modelMap.addAttribute("provinceList", provinceList);
+		
+		//市
+		CityQuery cityQuery = new CityQuery();	
+		cityQuery.setProvince(buyer.getProvince());
+		List<City> cityList = cityService.getCityList(cityQuery);
+		modelMap.addAttribute("cityList", cityList);
+		
+		//县
+		TownQuery townQuery = new TownQuery();
+		townQuery.setCity(buyer.getCity());
+		List<Town> townList = townService.getTownList(townQuery);
+		modelMap.addAttribute("townList", townList);
 		
 		return "buyer/profile";
+	}
+	
+	/**
+	 * ajax市
+	 * @param code
+	 * @param response
+	 */
+	@RequestMapping(value="/buyer/city.shtml")
+	public void citys(String code,HttpServletResponse response){
+		//市
+		CityQuery cityQuery = new CityQuery();
+		cityQuery.setProvince(code);
+		List<City> cityList = cityService.getCityList(cityQuery);
+		
+		JSONObject js= new JSONObject();
+		js.put("cityList", cityList);
+		
+		ResponUtils.renderJson(response, js.toString());
+	}
+	/**
+	 * ajax县
+	 * @param code
+	 * @param response
+	 */
+	@RequestMapping(value="/buyer/town.shtml")
+	public void towns(String code,HttpServletResponse response){
+		//市
+		TownQuery townQuery = new TownQuery();
+		townQuery.setCity(code);
+		List<Town> townList = townService.getTownList(townQuery);
+		
+		JSONObject js= new JSONObject();
+		js.put("townList", townList);
+		
+		ResponUtils.renderJson(response, js.toString());
 	}
 
 	/**
