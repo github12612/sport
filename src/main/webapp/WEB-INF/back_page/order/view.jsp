@@ -17,50 +17,50 @@
 				<tbody>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">收货人:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">范冰冰</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${addrList.name}</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">手机:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">13888888899</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${addrList.phone}</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">所在地区:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">北京市北京市通州区</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${addrList.city }</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">地址:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">建材城西路中腾建华3楼314室</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${addrList.addr}</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">订单号:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">20141212114007973</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.oid }</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">运费:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">0.0元</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.deliverFee}元</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">订单金额:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">128.0元</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.totalPrice }元</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">应付金额:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">128.11元</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.payableFee }元</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">支付方式:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">货到到付</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.paymentWayName }</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">付款要求:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">现金</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.paymentCashName }</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">支付状态:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">货到到付</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.isPaiyName }</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">订单状态:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">提交订单</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.stateName }</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">送货时间:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">只工作日送货（双休日，节假日不送）</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.deliveryName }</td>
 						<td width="12%" class="pn-flabel pn-flabel-h">电话确认:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">否</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.isConfirmName }</td>
 					</tr>
 					<tr>
 						<td width="12%" class="pn-flabel pn-flabel-h">创建时间:</td>
-						<td width="38%" colspan="1" class="pn-fcontent">2014-12-12 11:40:08.0</td>
-						<td width="12%" class="pn-flabel pn-flabel-h">备注:</td>
+						<td width="38%" colspan="1" class="pn-fcontent">${order.createDate }</td>
+						<td width="12%" class="pn-flabel pn-flabel-h">备注:${order.note }</td>
 						<td width="38%" colspan="1" class="pn-fcontent"></td>
 					</tr>
 				</tbody>
@@ -77,47 +77,16 @@
 					</tr>
 				</thead>
 				<tbody class="pn-ltbody">
-					
-					<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
-						<td align="center">20141028114510055</td>
-						<td align="center">依琦莲2014瑜伽服套装新款 瑜珈健身服三件套 广场舞蹈服装 性价比最高的瑜伽服 三件套 送胸垫 支持货到付款</td>
-						<td align="center">507</td>
-						<td align="center">275</td>
-						<td align="center">128.0元</td>
-						<td align="center">1件</td>
-					</tr>
-					<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
-						<td align="center">20141028114510055</td>
-						<td align="center">依琦莲2014瑜伽服套装新款 瑜珈健身服三件套 广场舞蹈服装 性价比最高的瑜伽服 三件套 送胸垫 支持货到付款</td>
-						<td align="center">507</td>
-						<td align="center">275</td>
-						<td align="center">128.0元</td>
-						<td align="center">1件</td>
-					</tr>
-					<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
-						<td align="center">20141028114510055</td>
-						<td align="center">依琦莲2014瑜伽服套装新款 瑜珈健身服三件套 广场舞蹈服装 性价比最高的瑜伽服 三件套 送胸垫 支持货到付款</td>
-						<td align="center">507</td>
-						<td align="center">275</td>
-						<td align="center">128.0元</td>
-						<td align="center">1件</td>
-					</tr>
-					<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
-						<td align="center">20141028114510055</td>
-						<td align="center">依琦莲2014瑜伽服套装新款 瑜珈健身服三件套 广场舞蹈服装 性价比最高的瑜伽服 三件套 送胸垫 支持货到付款</td>
-						<td align="center">507</td>
-						<td align="center">275</td>
-						<td align="center">128.0元</td>
-						<td align="center">1件</td>
-					</tr>
-					<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
-						<td align="center">20141028114510055</td>
-						<td align="center">依琦莲2014瑜伽服套装新款 瑜珈健身服三件套 广场舞蹈服装 性价比最高的瑜伽服 三件套 送胸垫 支持货到付款</td>
-						<td align="center">507</td>
-						<td align="center">275</td>
-						<td align="center">128.0元</td>
-						<td align="center">1件</td>
-					</tr>
+					<c:forEach items="${detailList}" var="detail">
+						<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
+							<td align="center">${detail.productNo }</td>
+							<td align="center">${detail.productName}</td>
+							<td align="center">${detail.color }</td>
+							<td align="center">${detail.size }</td>
+							<td align="center">${detail.skuPrice }元</td>
+							<td align="center">${detail.amount }件</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</form>

@@ -2,6 +2,7 @@ package com.sport.service.order;
 
 import java.util.List;
 
+import com.sport.bean.cart.BuyCart;
 import com.sport.bean.order.Order;
 import com.sport.query.order.OrderQuery;
 
@@ -18,7 +19,7 @@ public interface OrderService {
 	 * 
 	 * @return
 	 */
-	public Integer addOrder(Order order);
+	public Integer addOrder(Order order,BuyCart buyCart);
 
 	/**
 	 * 根据主键查询

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!--memcached -->
+	<bean id="memCachedClient" class="com.danga.MemCached.MemCachedClient">
+		<constructor-arg>
+			<value>sockIOPool</value>
+		</constructor-arg>
+	</bean>
+
+	<!--memcached链接池 -->
+	<bean id="sockIOPool" class="com.danga.MemCached.SockIOPool"
+		factory-method="getInstance" init-method="initialize" destroy-method="shutDown">
+		<constructor-arg>
+			<value>sockIOPool</value>
+		</constructor-arg>
+
+		<property name="servers">
+			<list>
+				<value>192.168.1.198:11211</value>
+			</list>
+		</property>
+		<property name="weights">
+			<list>
+				<value>1</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--spring AOP 配置  -->
+	<bean id="cachedInterceptor" class="com.sport.web.aop.CachedInterceptor">
+		<property name="expiry" value="420000"></property>
+	
+	</bean>
+	
+	<aop:config>
+	<!-- 切面 -->
+		<aop:aspect ref="cachedInterceptor">
+			<!--点  -->
+			<aop:around method="doAround" pointcut="execution(* com.sport.service.*.*.get*(..))"/>
+			<!-- 变更 -->
+			<aop:after method="doAfter" pointcut="execution(* com.sport.service.*.*.update*(..))"/>
+			<aop:after method="doAfter" pointcut="execution(* com.sport.service.*.*.add*(..))"/>
+			<aop:after method="doAfter" pointcut="execution(* com.sport.service.*.*.delete*(..))"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

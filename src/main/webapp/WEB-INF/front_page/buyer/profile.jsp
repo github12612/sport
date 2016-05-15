@@ -41,6 +41,11 @@ function changeCity(code){
 		$("#town").html(html);
 	},"json");
 }
+
+//保存
+function addProfile(){
+	
+}
 </script>
 </head>
 <body>
@@ -206,7 +211,9 @@ function changeCity(code){
 						<span class="bg_text"><input type="text" id="address" name="address" maxLength="32" value="北京海滨区XXXXXXX"/></span>
 						<span class="pos"><span class="tip errorTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>
 					</li>
-					<li><label for="">&nbsp;</label><input type="submit" value="保存" class="hand btn66x23" /></li>
+					<li><label for="">&nbsp;</label>
+						<input type="button" value="保存" class="hand btn66x23" onclick="addProfile()"/>
+					</li>
 					</ul>
 				</form>
 			</div>

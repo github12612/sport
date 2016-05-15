@@ -12,6 +12,7 @@ public class BuyItem {
 	private Sku sku;	
 	//数量
 	private Integer amount=1;
+	
 	public Sku getSku() {
 		return sku;
 	}
